@@ -8,3 +8,12 @@ CREATE TABLE usuario (
     senha VARCHAR(255) NOT NULL,
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+
+CREATE TABLE perfil (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    bio TEXT,
+    foto_perfil VARCHAR(255),
+);
+
