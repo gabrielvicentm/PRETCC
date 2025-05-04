@@ -26,8 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_name'] = $user['username']; 
 
             // Redireciona para a home ou outra página protegida
-            header("Location: ../html/home.php");  
-            exit();
+            header("Location: ../php/home.php");  
+            exit(); 
         } else {
             echo "Usuário ou senha inválidos. Tente novamente <a href='login.html'>clicando aqui</a>.";
         }

@@ -4,20 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro</title>
+  <link rel="stylesheet" href="../css/login.css"> <!-- Ajuste o caminho conforme necessário -->
 </head>
-<body>
-  <h1>Cadastro</h1>
-  <form action="../php/cadastro.php" method="POST">
-    <label for="username">Nome de usuário:</label><br>
-    <input type="text" id="username" name="username" required><br><br>
+<body class="login-body">
+  <div class="login-container">
+    <h1>Cadastro</h1>
+    <form action="../php/cadastro.php" method="POST">
+      <label for="username">Nome de usuário:</label>
+      <input type="text" id="username" name="username" required>
 
-    <label for="email">E-mail:</label><br>
-    <input type="email" id="email" name="email" required><br><br>
+      <label for="email">E-mail:</label>
+      <input type="email" id="email" name="email" required>
 
-    <label for="senha">Senha:</label><br>
-    <input type="password" id="senha" name="senha" required><br><br>
+      <label for="senha">Senha:</label>
+      <input type="password" id="senha" name="senha" required>
 
-    <button type="submit">Cadastrar</button>
-  </form>
+      <button type="submit">Cadastrar</button>
+    </form>
+
+    <p class="cadastro-link">
+      Já tem uma conta? <a href="login.html">Clique aqui para entrar</a>
+    </p>
+  </div>
 </body>
 </html>
