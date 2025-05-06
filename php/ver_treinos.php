@@ -21,6 +21,9 @@ if (!isset($_SESSION['user_id'])) {
   <title>Home</title>
   <link rel="stylesheet" href="../css/home.css">
 
+  <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css' rel='stylesheet' />
+  <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+
 
 </head>
 <body>
@@ -39,7 +42,11 @@ if (!isset($_SESSION['user_id'])) {
   </div>
 
   <div class="content"> 
-    <h1>Bem-vindo à Página de Visualização de treinos</h1>
+  <h1>Seu Diário de Treino</h1>
+<div id='calendar' style="background-color: #1a1a1a; border-radius: 10px; padding: 20px;"></div>
+
+<h2 style="margin-top: 40px;">Treinos do dia: <span id="dataSelecionada">Nenhuma data</span></h2>
+<div id="treinosDoDia" style="margin-top: 20px;"></div>
 
     <?php
 
@@ -69,32 +76,41 @@ $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
-echo "<h1>Seus Treinos</h1>";
-
-while ($treino = $result->fetch_assoc()) {
-    echo "<div style='border:1px solid #ccc; padding:10px; margin-bottom:20px;'>";
-    echo "<strong>Data:</strong> " . date("d/m/Y", strtotime($treino['created_at'])) . "<br>";
-    echo "<strong>Info do Treino:</strong> " . htmlspecialchars($treino['info_treino']) . "<br>";
-    echo "<strong>Exercício:</strong> " . htmlspecialchars($treino['exercicio_nome']) . "<br>";
-
-    // Buscar as séries relacionadas
-    $sql_series = "SELECT * FROM series WHERE treino_id = ?";
-    $stmt_series = $conn->prepare($sql_series);
-    $stmt_series->bind_param("i", $treino['id']);
-    $stmt_series->execute();
-    $result_series = $stmt_series->get_result();
-
-    echo "<ul>";
-    while ($serie = $result_series->fetch_assoc()) {
-        echo "<li>Peso: " . htmlspecialchars($serie['peso']) . " | Repetições: " . htmlspecialchars($serie['repeticoes']) . "</li>";
-    }
-    echo "</ul>";
-    echo "</div>";
-}
-
 $conn->close();
 ?>
 
   </div>
+
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+  let calendarEl = document.getElementById('calendar');
+
+  let calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+    height: 600,
+    selectable: true,
+    dateClick: function(info) {
+      let dataSelecionada = info.dateStr;
+      document.getElementById("dataSelecionada").textContent = dataSelecionada;
+      fetchTreinos(dataSelecionada);
+    }
+  });
+
+  calendar.render();
+});
+
+function fetchTreinos(data) {
+  fetch('buscar_treinos_por_data.php?data=' + data)
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById('treinosDoDia').innerHTML = html;
+    })
+    .catch(error => {
+      console.error("Erro ao buscar treinos:", error);
+      document.getElementById('treinosDoDia').innerHTML = "<p style='color: red;'>Erro ao carregar treinos</p>";
+    });
+}
+</script>
+
 </body>
 </html>
