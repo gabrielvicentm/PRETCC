@@ -42,8 +42,8 @@ if (!isset($_SESSION['user_id'])) {
     <h1>Bem-vindo à Página Inicial</h1>
     <p>Em breve, seu feed vai aparecer aqui!(eu espero)</p>
     <div class="button-container">
-        <a href="adicionar-treino.html" class="diary-button">🏋️‍♂️ <span>Adicionar Treino</span></a>
-        <a href="historico.html" class="diary-button">📅 <span>Histórico</span></a>
+        <a href="diario_form.php" class="diary-button">🏋️‍♂️ <span>Adicionar Treino</span></a>
+        <a href="ver_treinos" class="diary-button">📅 <span>Histórico</span></a>
         <a href="estatisticas.html" class="diary-button">📊 <span>Estatísticas</span></a>
         <a href="metas.html" class="diary-button">🎯 <span>Metas</span></a>
         <a href="progresso.html" class="diary-button">📸 <span>Progresso Visual</span></a>
