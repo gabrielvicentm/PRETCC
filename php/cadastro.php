@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmtPerfil->execute([':username' => $username]);
         
             echo "Cadastro realizado com sucesso!"; 
-            header("Location: login.html");  
+            header("Location: ../html/login.html");  
             exit(); 
         } else {
             echo "Erro ao cadastrar. Tente novamente <a href='cadastro.html'>clicando aqui</a>.";
