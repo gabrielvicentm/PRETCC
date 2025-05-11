@@ -1,0 +1,176 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    background-color: #121212;
+    color: #fff;
+}
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #202020;
+    border-right: 1px solid #555353;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #1a1a1a;
+}
+
+.sidebar a span {
+    margin-left: 10px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.content {
+    flex: 1;
+    padding: 30px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    width: 300px;
+    border-radius: 6px;
+    border: none;
+    background-color: #1f1f1f;
+    color: white;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: rgb(0, 70, 117);
+    border: none;
+    color: black;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px; /* Reduzindo o espaçamento entre as postagens */
+}
+
+.post-item {
+    background-color: #202020;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.post-media {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.post-media video {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.post-description {
+    color: #ccc;
+    margin-top: 8px;
+}
+
+.post-user {
+    font-weight: bold;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.perfil-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+.perfil-info {
+    margin-top: 10px;
+}
+
+.usuario-info {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.result-link {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.usuarios-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Usando 4 colunas para os usuários */
+    gap: 10px; /* Reduzindo o espaçamento entre os usuários */
+    margin-bottom: 20px; /* Menor distância entre a seção de usuários e o conteúdo abaixo */
+}
+
+.usuario-item {
+    background-color: #222;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+/* Ajustando a imagem do perfil */
+.usuario-item .perfil-img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 8px;
+}
+
+.usuario-item .result-link {
+    font-size: 14px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.usuario-item .result-link:hover {
+    color: orange;
+}
+
+/* Layout Diagonal (arranjo nas linhas) */
+.usuarios-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Número máximo de colunas */
+    gap: 10px; /* Reduzindo o espaçamento */
+    margin-bottom: 20px;
+    grid-auto-rows: 150px; /* Define o tamanho fixo da linha */
+}
+

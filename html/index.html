@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Diário de Treino Social</title>
+  <link rel="stylesheet" href="../css/index.css" />
+
+
+
+
+  
+</head>
+<body>
+  <header>
+    <div class="logo">LOGO INCRIVEL</div>
+    <nav>
+      <a href="#">Início</a>
+      <a href="#">Quem Somos</a>
+      <a href="#">Contato</a>
+      <button class="btn">Login</button>
+      <button class="btn">Cadastro</button>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Bem-vindo ao seu Diário de Treino Social</h1>
+    <p>Registre treinos, veja sua evolução em gráficos, conecte-se com seus amigos e compartilhe sua jornada!</p>
+    <img id="hero-image" src="../img/img1.jpg" alt="Imagem destaque">
+  </section>
+  
+
+  <section class="section">
+    <h2>Registro de Treinos</h2>
+    <p>Adicione exercícios, peso, séries e repetições. Acompanhe tudo com facilidade.</p>
+    <!-- [Imagem ilustrando o registro de treino] -->
+  </section>
+
+  <section class="section">
+    <h2>Gráficos de Progresso</h2>
+    <p>Visualize seu crescimento com gráficos automáticos baseados em seus treinos.</p>
+    <!-- [Inserir aqui um gráfico ou imagem de exemplo] -->
+  </section>
+
+  <section class="section">
+    <h2>Rede Social Integrada</h2>
+    <p>Poste vídeos, fotos, stories e interaja com amigos. Compartilhe sua evolução!</p>
+    <!-- [Inserir aqui carrossel de imagens ou vídeos] -->
+  </section>
+
+  <section class="section">
+    <h2>Converse com Outros Usuários</h2>
+    <p>Use o chat integrado para conversar com outros atletas e se motivar ainda mais.</p>
+    <!-- [Inserir aqui uma imagem ilustrando o chat] -->
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Diário de Treino Social. Todos os direitos reservados.</p>
+  </footer>
+
+
+  <script>
+    const imagens = [
+      "../img/img1.jpg",
+      "../img/img2.jpg",
+      "../img/img3.jpg"
+    ];
+  
+    let index = 0;
+    const imgElemento = document.getElementById("hero-image");
+  
+    setInterval(() => {
+      index = (index + 1) % imagens.length;
+      imgElemento.src = imagens[index];
+    }, 3500); // 5000 ms = 5 segundos
+  </script>
+
+
+</body>
+</html>
