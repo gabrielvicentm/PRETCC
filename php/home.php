@@ -49,20 +49,22 @@ $stmt = $conn->prepare("
 $stmt->execute();
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Buscar usuários com stories
+// Buscar usuários seguidos com stories
 $stmtUsersWithStories = $conn->prepare("
     SELECT u.id, u.username, pf.foto_perfil 
-    FROM usuario u
+    FROM seguidores s
+    JOIN usuario u ON u.id = s.seguido_id
     LEFT JOIN perfil pf ON u.username = pf.username
-    WHERE u.id != :viewerId 
+    WHERE s.seguidor_id = :viewerId
     AND EXISTS (
-        SELECT 1 FROM stories s WHERE s.usuario_id = u.id
+        SELECT 1 FROM stories st WHERE st.usuario_id = u.id
     )
 ");
 $stmtUsersWithStories->bindParam(':viewerId', $viewerId);
 $stmtUsersWithStories->execute();
 $usersWithStories = $stmtUsersWithStories->fetchAll(PDO::FETCH_ASSOC);
 
+// Verificar se stories foram visualizados
 foreach ($usersWithStories as &$user) {
     $stmtTotal = $conn->prepare("SELECT COUNT(*) FROM stories WHERE usuario_id = :uid");
     $stmtTotal->execute([':uid' => $user['id']]);
@@ -81,7 +83,6 @@ foreach ($usersWithStories as &$user) {
 }
 unset($user);
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
