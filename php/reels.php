@@ -90,6 +90,16 @@ foreach ($comentarios_raw as $c) {
 <!-- Container que vai exibir os posts -->
 <div class="container" id="reels-container">
 <?php foreach ($posts as $index => $post): ?>
+
+  <?php
+    $stmt_like = $conn->prepare("SELECT COUNT(*) FROM curtidas WHERE usuario_id = :uid AND postagem_id = :pid");
+    $stmt_like->execute([':uid' => $usuario_id, ':pid' => $post['id']]);
+    $curtido = $stmt_like->fetchColumn() > 0;
+
+    $stmt_total = $conn->prepare("SELECT COUNT(*) FROM curtidas WHERE postagem_id = :pid");
+    $stmt_total->execute([':pid' => $post['id']]);
+    $totalCurtidas = $stmt_total->fetchColumn();
+  ?>
   <!-- Exibe cada post -->
   <div class="post" data-index="<?= $index ?>" id="post-<?= $index ?>" style="<?= $index === 0 ? '' : 'display:none;' ?>">
     <div class="header">
