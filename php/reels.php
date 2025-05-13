@@ -1,20 +1,27 @@
 <?php
-session_start();
+// Inicia a sessão para garantir que o usuário esteja logado
+session_start(); 
+// Inclui a conexão com o banco de dados
 require_once 'conexao.php';
 
+// Verifica se o usuário está logado. Se não estiver, redireciona para a página de login
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.html");
     exit();
 }
 
+// Obtém o ID do usuário da sessão
 $usuario_id = $_SESSION['user_id'];
 
+// Verifica se o formulário foi enviado via POST e se os parâmetros necessários estão presentes
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comentario'], $_POST['post_id'], $_POST['post_index'])) {
-    $comentario = trim($_POST['comentario']);
-    $post_id = filter_input(INPUT_POST, 'post_id', FILTER_VALIDATE_INT);
-    $post_index = filter_input(INPUT_POST, 'post_index', FILTER_VALIDATE_INT);
+    $comentario = trim($_POST['comentario']); // Obtém o texto do comentário
+    $post_id = filter_input(INPUT_POST, 'post_id', FILTER_VALIDATE_INT); // Valida o ID do post
+    $post_index = filter_input(INPUT_POST, 'post_index', FILTER_VALIDATE_INT); // Valida o índice do post
 
+    // Se os campos estão preenchidos corretamente, insere o comentário no banco de dados
     if ($comentario !== '' && $post_id !== false && $post_index !== false) {
+        // Prepara o comando SQL para inserir o comentário
         $sql_insert = "INSERT INTO comentarios (usuario_id, post_id, texto, data_comentario) VALUES (:usuario_id, :post_id, :texto, NOW())";
         $stmt_insert = $conn->prepare($sql_insert);
         $stmt_insert->execute([
@@ -22,11 +29,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comentario'], $_POST[
             ':post_id' => $post_id,
             ':texto' => $comentario
         ]);
+        // Redireciona para o post com o comentário adicionado
         header("Location: reels.php#post-$post_index");
         exit();
     }
 }
 
+// Consulta os posts para exibição na página
 $sql = "
     SELECT r.*, u.username, pr.foto_perfil
     FROM reels r
@@ -38,6 +47,7 @@ $stmt = $conn->prepare($sql);
 $stmt->execute();
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+// Consulta os comentários de todos os posts
 $sql_coment = "
     SELECT c.*, u.username, p.foto_perfil 
     FROM comentarios c
@@ -49,6 +59,7 @@ $stmt_c = $conn->prepare($sql_coment);
 $stmt_c->execute();
 $comentarios_raw = $stmt_c->fetchAll(PDO::FETCH_ASSOC);
 
+// Organiza os comentários por post_id
 $comentarios = [];
 foreach ($comentarios_raw as $c) {
     $comentarios[$c['post_id']][] = $c;
@@ -64,6 +75,7 @@ foreach ($comentarios_raw as $c) {
 </head>
 <body>
 
+<!-- Sidebar com links de navegação -->
 <div class="sidebar">
   <div class="logo" style="color: orange;">LOGO LINDA</div>
   <a href="home.php"><img src="https://img.icons8.com/ios-filled/24/ffffff/home.png"/><span>Página Inicial</span></a>
@@ -75,35 +87,31 @@ foreach ($comentarios_raw as $c) {
   <a href="../php/logout.php"><img src="https://img.icons8.com/ios-filled/24/ffffff/logout-rounded-up.png"/><span>Sair</span></a>
 </div>
 
+<!-- Container que vai exibir os posts -->
 <div class="container" id="reels-container">
 <?php foreach ($posts as $index => $post): ?>
-  <?php
-    $stmt_like = $conn->prepare("SELECT COUNT(*) FROM curtidas WHERE usuario_id = :uid AND postagem_id = :pid");
-    $stmt_like->execute([':uid' => $usuario_id, ':pid' => $post['id']]);
-    $curtido = $stmt_like->fetchColumn() > 0;
-
-    $stmt_total = $conn->prepare("SELECT COUNT(*) FROM curtidas WHERE postagem_id = :pid");
-    $stmt_total->execute([':pid' => $post['id']]);
-    $totalCurtidas = $stmt_total->fetchColumn();
-  ?>
+  <!-- Exibe cada post -->
   <div class="post" data-index="<?= $index ?>" id="post-<?= $index ?>" style="<?= $index === 0 ? '' : 'display:none;' ?>">
     <div class="header">
+      <!-- Exibe o nome de usuário e foto de perfil -->
       <a href="perfil.php?usuario=<?= htmlspecialchars($post['username']) ?>">
         <img src="<?= htmlspecialchars($post['foto_perfil']) ?>" alt="Perfil" class="perfil-img">
       </a>
       <span class="username"><?= htmlspecialchars($post['username']) ?></span>
     </div>
 
-    <!-- Descrição do Post - Título -->
+    <!-- Descrição do post -->
     <div class="descricao-post">
       <p><strong><?= htmlspecialchars($post['descricao']) ?></strong></p>
     </div>
 
+    <!-- Exibição da mídia (imagem ou vídeo) -->
     <div class="media-container">
       <div class="media">
         <?php
-          $ext = strtolower(pathinfo($post['arquivo'], PATHINFO_EXTENSION));
+          $ext = strtolower(pathinfo($post['arquivo'], PATHINFO_EXTENSION)); // Obtém a extensão do arquivo
           $file = 'posts/' . $post['arquivo'];
+          // Verifica o tipo de mídia (imagem ou vídeo) e exibe o conteúdo corretamente
           if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
               echo "<img src='$file' alt='Post'>";
           } elseif (in_array($ext, ['mp4', 'webm', 'ogg'])) {
@@ -114,6 +122,7 @@ foreach ($comentarios_raw as $c) {
         ?>
 
         <div class="actions">
+          <!-- Formulário para curtir o post -->
           <form action="curtir.php" method="POST" style="display:inline;">
             <input type="hidden" name="usuario_id" value="<?= $usuario_id ?>">
             <input type="hidden" name="postagem_id" value="<?= $post['id'] ?>">
@@ -121,19 +130,23 @@ foreach ($comentarios_raw as $c) {
             <button type="submit" class="like-btn <?= $curtido ? 'liked' : '' ?>">❤️</button>
           </form>
           <span class="like-count"><?= $totalCurtidas ?></span>
+          <!-- Botão para exibir ou ocultar comentários -->
           <button class="comment-btn" onclick="toggleCommentsPanel(this)">💬</button>
         </div>
 
+        <!-- Navegação entre posts -->
         <?php if (count($posts) > 1): ?>
         <div class="arrow arrow-up" onclick="mudarPost(-1)">▲</div>
         <div class="arrow arrow-down" onclick="mudarPost(1)">▼</div>
         <?php endif; ?>
       </div>
 
+      <!-- Painel de comentários -->
       <div class="comments-panel">
         <h3>Comentários</h3>
         <div class="comments-list">
           <?php if (!empty($comentarios[$post['id']])): ?>
+            <!-- Exibe os comentários de cada post -->
             <?php foreach ($comentarios[$post['id']] as $coment): ?>
               <div class="comentario">
                 <a href="perfil.php?usuario=<?= htmlspecialchars($coment['username']) ?>">
@@ -147,6 +160,7 @@ foreach ($comentarios_raw as $c) {
           <?php endif; ?>
         </div>
 
+        <!-- Formulário para enviar um comentário -->
         <form class="comment-form" method="POST" action="reels.php">
           <input type="hidden" name="post_id" value="<?= $post['id'] ?>">
           <input type="hidden" name="post_index" value="<?= $index ?>">
@@ -160,6 +174,7 @@ foreach ($comentarios_raw as $c) {
 </div>
 
 <script>
+// Função para mostrar o post baseado no índice
 let indexAtual = 0;
 const posts = document.querySelectorAll('.post');
 
@@ -179,6 +194,7 @@ function mostrarPost(index) {
   indexAtual = index;
 }
 
+// Função para mudar o post (para cima ou para baixo)
 function mudarPost(direcao) {
   let novoIndex = indexAtual + direcao;
   if (novoIndex < 0) novoIndex = posts.length - 1;
@@ -187,11 +203,13 @@ function mudarPost(direcao) {
   window.location.hash = `post-${novoIndex}`;
 }
 
+// Função para exibir ou ocultar o painel de comentários
 function toggleCommentsPanel(button) {
   const panel = button.closest('.media-container').querySelector('.comments-panel');
   panel.classList.toggle('visible');
 }
 
+// Configura o post inicial com base no fragmento da URL
 document.addEventListener('DOMContentLoaded', () => {
   const fragment = window.location.hash;
   if (fragment.startsWith("#post-")) {
