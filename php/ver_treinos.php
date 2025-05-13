@@ -19,14 +19,18 @@ if (!isset($_SESSION['user_id'])) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home</title>
+  
   <link rel="stylesheet" href="../css/home.css">
 
+  <!-- FullCalendar CSS/JS -->
   <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css' rel='stylesheet' />
   <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
 
 
+
 </head>
 <body>
+
   <div class="sidebar">
       <div class="logo" style="color: orange;">LOGO LINDA</div>
     <a href="home.php"><img src="https://img.icons8.com/ios-filled/24/ffffff/home.png"/><span>Página Inicial</span></a>
@@ -43,7 +47,12 @@ if (!isset($_SESSION['user_id'])) {
 
   <div class="content"> 
   <h1>Seu Diário de Treino</h1>
-<div id='calendar' style="background-color: #1a1a1a; border-radius: 10px; padding: 20px;"></div>
+
+
+  
+  <div id='calendar' style="background-color: #1a1a1a; border-radius: 10px; padding: 20px;"></div>
+
+
 
 <h2 style="margin-top: 40px;">Treinos do dia: <span id="dataSelecionada">Nenhuma data</span></h2>
 <div id="treinosDoDia" style="margin-top: 20px;"></div>
@@ -81,6 +90,7 @@ $conn->close();
 
   </div>
 
+  
   <script>
 document.addEventListener('DOMContentLoaded', function() {
   let calendarEl = document.getElementById('calendar');
@@ -111,6 +121,7 @@ function fetchTreinos(data) {
     });
 }
 </script>
+
 
 </body>
 </html>
