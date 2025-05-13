@@ -99,3 +99,20 @@ CREATE TABLE IF NOT EXISTS reels (
     data_post TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE
 );
+
+CREATE TABLE treinos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    data_treino DATE,
+    info_treino VARCHAR(255),
+    exercicio_nome VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE series (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    treino_id INT,
+    peso VARCHAR(50),
+    repeticoes VARCHAR(50),
+    FOREIGN KEY (treino_id) REFERENCES treinos(id) ON DELETE CASCADE
+);
