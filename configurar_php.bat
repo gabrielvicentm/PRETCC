@@ -2,7 +2,7 @@
 setlocal
 
 REM Caminho para o php.ini (ajuste se necessário)
-set PHP_INI="C:\wamp64\bin\apache\apache2.4.59\bin\php.ini"
+set PHP_INI="C:\wamp64\bin\apache\apache2.4.54.2\bin\php.ini"
 
 REM Altera ou adiciona as configurações desejadas
 powershell -Command "(Get-Content %PHP_INI%) -replace 'upload_max_filesize\s*=.*', 'upload_max_filesize = 1000M' | Set-Content %PHP_INI%"
