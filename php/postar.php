@@ -61,7 +61,9 @@ $stories = $stmt->fetchAll(PDO::FETCH_ASSOC); // Armazena os resultados dos stor
 
 <!-- Barra lateral com links para outras páginas do site -->
 <div class="sidebar">
-    <div class="logo" style="color: orange;">LOGO LINDA</div>
+    <div class="logo">
+  <img src="../img/logo.png" alt="Logo" style="height: 100px;">
+</div>
     <a href="home.php"><img src="https://img.icons8.com/ios-filled/24/ffffff/home.png"/><span>Página Inicial</span></a>
     <a href="diario.php"><img src="https://img.icons8.com/ios-filled/24/ffffff/dumbbell.png"/><span>Diário de Treino</span></a>
     <a href="pesquisa.php"><img src="https://img.icons8.com/ios-filled/24/ffffff/search.png"/><span>Pesquisa</span></a>
