@@ -11,6 +11,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die('Por favor, preencha todos os campos. Tente novamente <a href="cadastro.html">clicando aqui</a>.');
     }
 
+    // Validação do username
+    if (!preg_match('/^[a-zA-Z0-9._]+$/', $username)) {
+        die('Nome de usuário inválido. Use apenas letras, números, ponto e underline. <a href="cadastro.html">Tente novamente</a>.');
+    }
+
+    // Continuação com o hash da senha e o cadastro...
+
+
     // Gerar o hash seguro da senha
     $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
@@ -38,3 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
+
+
+
