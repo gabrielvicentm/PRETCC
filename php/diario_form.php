@@ -14,6 +14,116 @@ if (!isset($_SESSION['user_id'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home</title>
   <link rel="stylesheet" href="../css/home.css">
+  <style>
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    justify-content: flex-end; /* empurra o conteúdo para a direita */
+    padding-top: 40px;
+    min-height: 100vh;
+}
+
+h1 {
+    color: orange;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #ccc;
+}
+/* ajusta a .content pra não ficar grudada na sidebar */
+.content {
+    width: 80%;
+    max-width: 800px;
+    margin-right: 20px; /* espaço da direita */
+    margin-left: 250px; /* espaço para a sidebar fixa */
+    text-align: center;
+}
+
+
+form {
+    background-color: #1a1a1a;
+    padding: 40px;
+    border-radius: 10px;
+    border: 2px solid #00ff88;
+    text-align: left;
+    margin-top: 30px;
+}
+
+label {
+    font-weight: bold;
+    color: #ffffff;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #2a2a2a;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+input::placeholder {
+    color: #888;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: orange;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #9a5d02;
+}
+
+button.remover-btn {
+    background-color: transparent;
+    border: 1px solid red;
+    color: red;
+    margin-top: 10px;
+}
+
+button.remover-btn:hover {
+    background-color: red;
+    color: white;
+}
+
+.form-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #2a2a2a;
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px #000;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: orange;
+    margin-top: 30px;
+}
+
+  </style>
 </head>
 <body>
   <div class="sidebar">
@@ -47,7 +157,7 @@ if (!isset($_SESSION['user_id'])) {
     <form action="processar_formulario.php" method="POST" id="formulario" style="border: 2px #1a1a1a; padding: 50px; border-radius: 10px; width: 50%; background-color: #1a1a1a">
   
   
-    <p style="color: green; font-weight: bold;">Insira aqui a informação do seu treino Ex: Data e grupamento muscular</p>
+    <p style="color: orange; font-weight: bold;">Insira aqui a informação do seu treino Ex: Data e grupamento muscular</p>
 
 
   
@@ -80,7 +190,7 @@ if (!isset($_SESSION['user_id'])) {
   </div>
 
   <br>
-  <button style="color: green;" type="submit">Salvar Treino</button>
+  <button type="submit">Salvar Treino</button>
 
   <button type="button" onclick="adicionarExercicio()">Adicionar Exercício</button>
   
