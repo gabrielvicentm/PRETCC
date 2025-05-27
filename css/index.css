@@ -109,6 +109,14 @@
   
 
   #hero-image{
-    width: 400px;
-    height: 250px;
+    width: 750px;
+    height: 450px;
   }
+
+  .section img {
+  width: 500px;
+  height: 350px;
+  object-fit: cover; /* mantém o conteúdo ajustado sem distorção */
+  display: block;
+  margin-top: 15px; /* espaço entre o texto e a imagem */
+}
