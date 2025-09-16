@@ -1,4 +1,3 @@
-
 CREATE DATABASE tarcisio;
 USE tarcisio;
 
@@ -8,8 +7,8 @@ CREATe TABLE usuario (
     email VARCHAR(100) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    
 );
-
 
 
 CREATE TABLE perfil (
@@ -18,7 +17,12 @@ CREATE TABLE perfil (
     nome VARCHAR(100),
     bio TEXT,
     foto_perfil VARCHAR(255),
-    FOREIGN KEY (username) REFERENCES usuario(username)
+    FOREIGN KEY (username) REFERENCES usuario(username),
+	cep VARCHAR(9),
+	logradouro VARCHAR(255),
+	bairro VARCHAR(100),
+	localidade VARCHAR(100),
+	uf VARCHAR(2)
 );
 
 CREATE TABLE seguidores (
