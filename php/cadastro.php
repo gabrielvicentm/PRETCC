@@ -6,8 +6,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $email = $_POST['email']; 
     $senha = $_POST['senha']; 
+    $cep = $_POST['cep'];
+    $logradouro = $_POST['logradouro'];
+    $bairro = $_POST['bairro'];
+    $localidade = $_POST['localidade']; 
+    $uf = $_POST['uf'];
 
-    if (empty($username) || empty($email) || empty($senha)) { 
+    // Validação de campos obrigatórios
+    if (empty($username) || empty($email) || empty($senha) || empty($cep) || empty($logradouro) || empty($bairro) || empty($localidade) || empty($uf)) { 
         die('Por favor, preencha todos os campos. Tente novamente <a href="cadastro.html">clicando aqui</a>.');
     }
 
@@ -32,8 +38,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmt->execute()) { 
             // Cadastro do usuário foi bem-sucedido, agora cria o perfil com foto padrão
-            $stmtPerfil = $conn->prepare("INSERT INTO perfil (username, nome, bio, foto_perfil) VALUES (:username, '', '', '../uploads/default.jpg')");
-            $stmtPerfil->execute([':username' => $username]);
+            $stmtPerfil = $conn->prepare("
+                INSERT INTO perfil (username, nome, bio, foto_perfil, cep, logradouro, bairro, localidade, uf) 
+                VALUES (:username, '', '', '../uploads/default.jpg', :cep, :logradouro, :bairro, :localidade, :uf)
+            ");
+            $stmtPerfil->execute([
+                ':username' => $username, ':cep' => $cep, ':logradouro' => $logradouro, 
+                ':bairro' => $bairro, ':localidade' => $localidade, ':uf' => $uf
+            ]);
         
             echo "Cadastro realizado com sucesso!"; 
             header("Location: ../html/login.html");  
@@ -46,7 +58,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
-
-
-

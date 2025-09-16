@@ -24,7 +24,7 @@ if (!isset($_SESSION['user_id'])) {
 
 </head>
 <body>
-  <div class="sidebar">
+  <div class="sidebar"> 
        <div class="logo">
   <img src="../img/logo.png" alt="Logo" style="height: 100px;">
 </div>
@@ -43,8 +43,12 @@ if (!isset($_SESSION['user_id'])) {
     <p>Em breve, seu feed vai aparecer aqui!(eu espero)</p>
     <div class="button-container">
         <a href="diario_form.php" class="diary-button">🏋️‍♂️ <span>Adicionar Treino</span></a>
+<<<<<<< HEAD
         <a href="ver_treinos" class="diary-button">📅 <span>Histórico</span></a>
         
+=======
+        <a href="ver_treinos" class="diary-button">📅 <span>Meus Treinos</span></a>
+>>>>>>> a0bef885e5fb52fb23016634a5a7854a3fa91243
       </div>
       
   </div>

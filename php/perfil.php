@@ -15,7 +15,7 @@ if (!isset($_SESSION['user_id'])) {
 $username = isset($_GET['u']) ? $_GET['u'] : $_SESSION['user_name'];
 
 // Prepara e executa a consulta para buscar os dados do perfil do usuário.
-$stmt = $conn->prepare("SELECT nome, bio, foto_perfil FROM perfil WHERE username = :username");
+$stmt = $conn->prepare("SELECT nome, bio, foto_perfil, cep, logradouro, bairro, localidade, uf FROM perfil WHERE username = :username");
 $stmt->execute([':username' => $username]);
 $perfil = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -143,6 +143,17 @@ $perfil_proprio = ($username === $_SESSION['user_name']);
                     <?= nl2br(htmlspecialchars($perfil['bio'])) ?>
                 </div>
 
+                <!-- Exibe as informações de endereço -->
+                <?php if (!empty($perfil['cep'])): ?>
+                <div style="margin-top: 20px; font-size: 14px; color: #aaa;">
+                    <p><strong>📍 Endereço:</strong></p>
+                    <p style="margin-left: 15px;">
+                        <?= htmlspecialchars($perfil['logradouro']) ?><br>
+                        <?= htmlspecialchars($perfil['bairro']) ?> - <?= htmlspecialchars($perfil['localidade']) ?>/<?= htmlspecialchars($perfil['uf']) ?><br>
+                        CEP: <?= htmlspecialchars($perfil['cep']) ?>
+                    </p>
+                </div>
+                <?php endif; ?>
                 <!-- Exibe os posts do usuário -->
                 <hr style="margin: 30px 0; border-color: #444;">
                 <h3 style="color: #fff;">Posts</h3>
