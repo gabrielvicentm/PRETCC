@@ -19,6 +19,23 @@
       <label for="senha">Senha:</label>
       <input type="password" id="senha" name="senha" required>
 
+      <hr style="border-color: #555; margin: 20px 0;">
+
+      <label for="cep">CEP:</label>
+      <input type="text" id="cep" name="cep" onblur="buscarCEP()" maxlength="9" placeholder="Digite o CEP e aguarde">
+
+      <label for="logradouro">Rua:</label>
+      <input type="text" id="logradouro" name="logradouro" required>
+
+      <label for="bairro">Bairro:</label>
+      <input type="text" id="bairro" name="bairro" required>
+
+      <label for="localidade">Cidade:</label>
+      <input type="text" id="localidade" name="localidade" required>
+
+      <label for="uf">Estado (UF):</label>
+      <input type="text" id="uf" name="uf" required>
+
       <button type="submit">Cadastrar</button>
     </form>
 
@@ -26,5 +43,29 @@
       Já tem uma conta? <a href="login.html">Clique aqui para entrar</a>
     </p>
   </div>
+
+  <script>
+    function buscarCEP() {
+        var cep = document.getElementById('cep').value.replace(/\D/g, "");
+        if (cep.length === 8) {
+            fetch('https://viacep.com.br/ws/' + cep + '/json/')
+                .then(response => response.json())
+                .then(dados => {
+                    if (!dados.erro) {
+                        document.getElementById('logradouro').value = dados.logradouro;
+                        document.getElementById('bairro').value = dados.bairro;
+                        document.getElementById('localidade').value = dados.localidade;
+                        document.getElementById('uf').value = dados.uf;
+                    } else {
+                        alert('CEP não encontrado. Por favor, verifique e tente novamente.');
+                    }
+                })
+                .catch(() => alert('Erro ao consultar o CEP. Tente novamente mais tarde.'));
+        } else if (cep.length > 0) {
+            alert('CEP inválido. O CEP deve conter 8 dígitos.');
+        }
+    }
+  </script>
+
 </body>
 </html>
