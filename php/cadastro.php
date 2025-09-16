@@ -6,12 +6,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $email = $_POST['email']; 
     $senha = $_POST['senha']; 
-    // Captura dos novos campos de endereço
-    $cep = $_POST['cep'] ?? '';
-    $logradouro = $_POST['logradouro'] ?? '';
-    $bairro = $_POST['bairro'] ?? '';
-    $localidade = $_POST['localidade'] ?? '';
-    $uf = $_POST['uf'] ?? '';
+    $cep = $_POST['cep'];
+    $logradouro = $_POST['logradouro'];
+    $bairro = $_POST['bairro'];
+    $localidade = $_POST['localidade']; 
+    $uf = $_POST['uf'];
 
     // Validação de campos obrigatórios
     if (empty($username) || empty($email) || empty($senha) || empty($cep) || empty($logradouro) || empty($bairro) || empty($localidade) || empty($uf)) { 
