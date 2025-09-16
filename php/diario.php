@@ -33,10 +33,8 @@ if (!isset($_SESSION['user_id'])) {
     <a href="pesquisa.php"><img src="https://img.icons8.com/ios-filled/24/ffffff/search.png"/><span>Pesquisa</span></a>
     <a href="reels.php"><img src="https://img.icons8.com/ios-filled/24/ffffff/film-reel.png"/><span>Vídeos Curtos</span></a>
     <a href="postar.php"><img src="https://img.icons8.com/ios-filled/24/ffffff/plus-math.png"/><span>Postar</span></a>
-    <a href="perfil.php"><img src="https://img.icons8.com/ios-filled/24/ffffff/user.png"/><span>
-  <?php
-      echo "" . $_SESSION['user_name'];
-  ?> </span></a>
+    <a href="perfil.php"><img src="https://img.icons8.com/ios-filled/24/ffffff/user.png"/><span><?= $_SESSION['user_name']; ?></span></a>
+    <a href="conversas.php"><img src="https://img.icons8.com/ios-filled/24/ffffff/logout-rounded-up.png"/><span>Mensagens</span></a>
     <a href="../php/logout.php"><img src="https://img.icons8.com/ios-filled/24/ffffff/logout-rounded-up.png" /><span>Sair</span></a>
   </div>
 
@@ -46,9 +44,7 @@ if (!isset($_SESSION['user_id'])) {
     <div class="button-container">
         <a href="diario_form.php" class="diary-button">🏋️‍♂️ <span>Adicionar Treino</span></a>
         <a href="ver_treinos" class="diary-button">📅 <span>Histórico</span></a>
-        <a href="estatisticas.html" class="diary-button">📊 <span>Estatísticas</span></a>
-        <a href="metas.html" class="diary-button">🎯 <span>Metas</span></a>
-        <a href="progresso.html" class="diary-button">📸 <span>Progresso Visual</span></a>
+        
       </div>
       
   </div>

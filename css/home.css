@@ -110,12 +110,10 @@ body {
 .post {
     background-color: #333;
     border-radius: 12px;
-    width: 360px;
-    height: 640px;
+    width: 470px; /* Aumentando a largura para melhor visualização */
+    max-width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     position: relative;
 }
@@ -188,12 +186,14 @@ body {
 
 .comments {
     margin-top: 15px;
-    border-top: 1px solid #444;
-    padding-top: 10px;
     padding: 10px;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 2;
-    overflow-y: auto;
+    border-top: 1px solid #444; /* Mantém a linha separadora */
+    overflow-y: auto; /* Adiciona rolagem se necessário */
+    max-height: 150px; /* Define uma altura máxima para a área de comentários */
+    flex-grow: 1; /* Permite que a área de comentários cresça */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .comment {
@@ -220,10 +220,10 @@ body {
 }
 
 .comment-form {
-    display: flex;
-    gap: 10px;
-    padding: 10px;
-    background-color: rgba(0,0,0,0.5);
+    display: flex; /* Mantém o layout flexível */
+    gap: 10px; /* Espaçamento entre os elementos */
+    padding: 10px; /* Espaçamento interno */
+    border-top: 1px solid #444; /* Adiciona uma linha separadora */
 }
 
 .comment-form input[type="text"] {
