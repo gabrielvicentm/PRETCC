@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumir API de Sabores de Sorvete</title>
+   <link rel="stylesheet" href="./css/api_style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sabores de Sorvete</h1>
+        <ul id="lista-itens"></ul>
+    </div>
+    <script>
+        fetch("http://localhost/PRETCC/api3.php") 
+            .then(res => res.json())
+            .then(dados => {
+                const lista = document.getElementById("lista-itens");
+                dados.forEach(sorvete => {
+                    const li = document.createElement("li");
+                    li.textContent = `Sabor: ${sorvete.sabor} | Tipo: ${sorvete.tipo} | Descrição: ${sorvete.descricao}`;
+                    lista.appendChild(li);
+                });
+            })
+            .catch(err => console.error("Erro na API de Itens:", err));
+    </script>
+</body>
+</html>
